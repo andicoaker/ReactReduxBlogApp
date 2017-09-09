@@ -18,8 +18,10 @@ export function fetchPosts() {
 }
 
 // first argument is the url, second is the object/data we want to send to the api
-export function createPost (values) {
+// callback is allowing us to ret
+export function createPost (values, callback) {
   const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
+    .then( () => callback() );
 
   return {
     type: CREATE_POST,

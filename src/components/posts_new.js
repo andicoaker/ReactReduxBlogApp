@@ -36,9 +36,12 @@ class PostsNew extends Component {
   // submit function that is passed into the onSubmit event in the form below
   // this === component
   // calls an action creator responsible for posting to API
+  // this.props.history.push - navigates the user to the home page after the post has been created
   onSubmit(values) {
     // console.log(values);
-    this.props.createPost(values);
+    this.props.createPost(values, () => {
+      this.props.history.push('/');
+    });
   }
 
   render() {
