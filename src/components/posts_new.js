@@ -5,6 +5,7 @@ class PostsNew extends Component {
 
   // field argument contains event handlers needed to wire-up the jsx being returned
   // ...field.input says this is an object and i want all the objects properties to be communicated as props to the input tag. saves us from having to do onChange, onFocuse, onBlur, etc.
+  // field.meta.touched - if user has touched the field, show the error otherwise return the string
   renderField(field) {
     return (
       <div className="form-group">
@@ -14,6 +15,7 @@ class PostsNew extends Component {
           type="text"
           {...field.input}
         />
+        {field.meta.touched ? field.meta.error : ''}
       </div>
     );
   }
@@ -21,9 +23,18 @@ class PostsNew extends Component {
   // name property specificies the piece of state this component will produce
   // component property in the form field component adds a function that will return some jsx to show the field component on the screen
 
+  // submit function that is passed into the onSubmit event in the form below
+  // this === component
+  onSubmit(values) {
+
+    console.log(values);
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Title For Post"
           name="title"
@@ -39,26 +50,27 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
 }
 
-// validating the info the user inputs into the form
+// this function is validating the info the user inputs into the form
 
 function validate(values) {
-  // start off by creating empty obj
+  // always start off by creating empty obj
   const errors = {};
 
   // validate the inputs from 'values'. if not valid, assign message to display to user. can combine multiple validations if needed.
-  if (!values.title || values.title.length < 3) {
-    errors.title = "Enter a title that is at least 3 characters!";
+  if (!values.title) {
+    errors.title = "Enter a title!";
   }
-  if (!values.catagories) {
-    errors.title = "Enter some catagories!";
+  if (!values.categories) {
+    errors.categories = "Enter some categories!";
   }
   if (!values.content) {
-    errors.title = "Enter some content!";
+    errors.content = "Enter some content!";
   }
 
   // if errors is empty, the form is fine to submit. if errors has any properties, redux-form assumes form is invalid
