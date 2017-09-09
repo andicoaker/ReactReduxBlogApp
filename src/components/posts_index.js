@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchPosts } from '../actions';
 
 class PostsIndex extends Component {
@@ -19,14 +20,20 @@ class PostsIndex extends Component {
         <li className="list-group-item" key={post.id}>
           {post.title}
         </li>
-      );  
+      );
     });
   }
 
+  // instead of anchor tags, we use Link components with React-Router. the to property is a string, the new route the user will be routed to when link tag is clicked.
   render () {
     // console.log(this.props.posts);
     return (
       <div>
+        <div className="text-xs-right">
+          <Link className="btn btn-primary" to="/posts/new">
+            Add a Post
+          </Link>
+        </div>
         <h3>Posts</h3>
         <ul className="list-group">
           {this.renderPosts()}
