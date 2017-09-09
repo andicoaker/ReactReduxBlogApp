@@ -6,16 +6,20 @@ class PostsNew extends Component {
 
   // field argument contains event handlers needed to wire-up the jsx being returned
   // ...field.input says this is an object and i want all the objects properties to be communicated as props to the input tag. saves us from having to do onChange, onFocuse, onBlur, etc.
-  renderTitleField(field) {
+  renderField(field) {
     return (
-      <div>
+      <div className="form-group">
+        <label>{field.label}</label>
         <input
+          className="form-control"
           type="text"
           {...field.input}
         />
       </div>
     );
   }
+
+
 
   // name property specificies the piece of state this component will produce
   // component property in the form field component adds a function that will return some jsx to show the field component on the screen
@@ -24,8 +28,19 @@ class PostsNew extends Component {
     return (
       <form>
         <Field
+          label="Title For Post"
           name="title"
-          component={this.renderTitleField}
+          component={this.renderField}
+        />
+        <Field
+          label="Tags"
+          name="tags"
+          component={this.renderField}
+        />
+        <Field
+          label="Post Content"
+          name="content"
+          component={this.renderField}
         />
       </form>
     );
