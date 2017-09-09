@@ -1,5 +1,5 @@
-import { FETCH_POSTS } from '../actions';
 import _ from 'lodash';
+import { FETCH_POSTS } from '../actions';
 
 // set initial state to default to empty obj
 export default function (state = {}, action) {
