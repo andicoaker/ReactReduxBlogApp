@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-
 class PostsNew extends Component {
 
   // field argument contains event handlers needed to wire-up the jsx being returned
@@ -19,8 +18,6 @@ class PostsNew extends Component {
     );
   }
 
-
-
   // name property specificies the piece of state this component will produce
   // component property in the form field component adds a function that will return some jsx to show the field component on the screen
 
@@ -33,8 +30,8 @@ class PostsNew extends Component {
           component={this.renderField}
         />
         <Field
-          label="Tags"
-          name="tags"
+          label="Categories"
+          name="categories"
           component={this.renderField}
         />
         <Field
@@ -47,8 +44,30 @@ class PostsNew extends Component {
   }
 }
 
+// validating the info the user inputs into the form
+
+function validate(values) {
+  // start off by creating empty obj
+  const errors = {};
+
+  // validate the inputs from 'values'. if not valid, assign message to display to user. can combine multiple validations if needed.
+  if (!values.title || values.title.length < 3) {
+    errors.title = "Enter a title that is at least 3 characters!";
+  }
+  if (!values.catagories) {
+    errors.title = "Enter some catagories!";
+  }
+  if (!values.content) {
+    errors.title = "Enter some content!";
+  }
+
+  // if errors is empty, the form is fine to submit. if errors has any properties, redux-form assumes form is invalid
+  return errors;
+}
+
 // reduxForm function helper to wrap the PostsNew component. this allows component to talk to the associated reducer.
 // assign a unique string to the form property
 export default reduxForm({
+  validate,
   form: 'PostsNewForm'
 })(PostsNew);
