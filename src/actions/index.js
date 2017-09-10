@@ -39,3 +39,15 @@ export function fetchPost(id) {
     payload: request
   };
 }
+
+// deleting single post using axios.delete
+// only need to return the id of the post we are deleteing
+// add callback function to return the user to the main list of posts
+export function deletePost(id, callback) {
+  const request = axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`).then( () => callback() );
+
+  return {
+    type: DELETE_POST,
+    payload: id
+  };
+}
