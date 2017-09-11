@@ -18,7 +18,7 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 
 // If user goes to a route path, show the component listed
-// adding :id to the path gives react-router a wild card that it will try to match to (no longer use this once routes are created, so this was removed)
+// adding :id to the path gives react-router a wild card that it will try to match to 
 // switch component looks at all routes inside and only renders the first route that matches the url, so put most specific route first.
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
